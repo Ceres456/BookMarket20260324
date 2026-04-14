@@ -94,7 +94,7 @@ public class BookRepositoryImpl implements BookRepository {
             for (String publisherName : filter.get("publisher")){
                 for (Book searchBook : listofBooks){
                     if (publisherName.equalsIgnoreCase(searchBook.getPublisher()))
-                        booksByCategory.add(searchBook);
+                        booksByPublisher.add(searchBook);
                 }
             }
         }
