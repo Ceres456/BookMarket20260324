@@ -7,7 +7,7 @@ import java.util.*;
 @Repository
 public class BookRepositoryImpl implements BookRepository {
     private List<Book> listofBooks = new ArrayList<Book>();
-    
+
     public BookRepositoryImpl() {
         Book book1 = new Book();
         book1.setBookId("isbn1001");
@@ -44,7 +44,7 @@ public class BookRepositoryImpl implements BookRepository {
         book3.setAuthor("우아한형제들");
         book3.setUnitPrice(new BigDecimal(21600));
         book3.setReleaseDate("2025/04/01");
-        
+
         listofBooks.add(book1);
         listofBooks.add(book2);
         listofBooks.add(book3);
@@ -109,5 +109,10 @@ public class BookRepositoryImpl implements BookRepository {
         booksByCategory.retainAll(booksByPublisher);
 
         return booksByCategory;
+    }
+
+    @Override
+    public void setNewBook(Book book) {
+        listofBooks.add(book);
     }
 }
