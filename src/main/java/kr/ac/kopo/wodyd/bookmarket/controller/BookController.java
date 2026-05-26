@@ -1,6 +1,7 @@
 package kr.ac.kopo.wodyd.bookmarket.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import kr.ac.kopo.wodyd.bookmarket.domain.Book;
 import kr.ac.kopo.wodyd.bookmarket.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -58,14 +60,18 @@ public class BookController {
     }
 
     @GetMapping("/add")
-    public String requestAddBookFomr(){
-        return "addbook";
+    public String requestAddBookFomr(Model model){
+        model.addAttribute("book", new Book());
+        return "addBook";
     }
 
     @PostMapping("/add")
-    public String submitAddNewBook(@ModelAttribute Book book){
-        MultipartFile bookImage = book.getBookImage();
+    public String submitAddNewBook(@Valid @ModelAttribute Book book, BindingResult bindingResult){
+        if (bindingResult.hasErrors())
+            return "addBook";
 
+        MultipartFile bookImage = book.getBookImage();
+        System.out.println("파일사이즈" + bookImage.getSize());
         String saveName = bookImage.getOriginalFilename();
         File saveFile = new File(fileDir, saveName);
         if (bookImage != null && !bookImage.isEmpty()){
