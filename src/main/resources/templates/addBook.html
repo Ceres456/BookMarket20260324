@@ -24,14 +24,13 @@
             </div>
         </div>
         <div class="row align-items-md-stretch">
-            <form action="/BookMarket/books/add" method="post" th:object="${book}" enctype="multipart/form-data">
+            <form th:action="@{/books/add}" method="post" th:object="${book}" enctype="multipart/form-data">
                 <legend th:text="${addTitle}"></legend>
                 <div class="mb-3 row">
                     <label class="col-sm-2 control-label">도서 ID</label>
                     <div class="col-sm-3">
-                        <input type="text" name="bookId" class="form-control" th:field="*{bookId}" />
+                        <input type="text" name="bookId" class="form-control" th:field="*{bookId}"/>
                     </div>
-
                     <div class="col-sm-6">
                         <p class="text-danger" th:errors="*{bookId}"/>
                     </div>
@@ -96,9 +95,9 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 control-label">상태</label>
                     <div class="col-sm-3">
-                        <input type="radio" name="condition" value="New"/> 신규도서
-                        <input type="radio" name="condition" value="Old"/> 중고도서
-                        <input type="radio" name="condition" value="E-Book"/> 전자책
+                        <input type="radio" name="condition" th:field="*{condition}" value="New"/> 신규도서
+                        <input type="radio" name="condition" th:field="*{condition}" value="Old"/> 중고도서
+                        <input type="radio" name="condition" th:field="*{condition}" value="E-Book"/> 전자책
                     </div>
                 </div>
                 <div class="mb-3 row">
