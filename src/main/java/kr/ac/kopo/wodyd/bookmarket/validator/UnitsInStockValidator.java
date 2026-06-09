@@ -18,9 +18,9 @@ public class UnitsInStockValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Book book = (Book) target;
         BigDecimal unitPrice = book.getUnitPrice();
-        long unitInStock = book.getUnitsInStock();
-        if(unitPrice != null && unitPrice.intValue() >= 10000 && unitInStock > 99 ){
-            errors.rejectValue("unitsInStock", "UnitsInStockValidator.message", "가격 10000 쓰껄쓰껄");
+        long unitsInStock = book.getUnitsInStock();
+        if (unitPrice != null && unitPrice.intValue() >= 10000 && unitsInStock > 99){
+            errors.rejectValue("unitsInStock", "UnitsInStockValidator.message", "가격이 10000원 이상인 경우에는 99개 이상을 재고량으로 등록할 수 없습니다.");
         }
     }
 }

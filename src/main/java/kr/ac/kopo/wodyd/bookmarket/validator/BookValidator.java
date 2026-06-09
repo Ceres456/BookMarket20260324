@@ -1,34 +1,44 @@
 package kr.ac.kopo.wodyd.bookmarket.validator;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintViolation;
 import kr.ac.kopo.wodyd.bookmarket.domain.Book;
-import kr.ac.kopo.wodyd.bookmarket.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-public class BookValidator implements ConstraintValidator<BookId, String> {
+import java.util.HashSet;
+import java.util.Set;
+// @ 어노테이션(Bean Validation 과 사용자 정의)
+// Validator 구현체
+// 위 두가지를 통합
+@Component
+public class BookValidator implements Validator {
     @Autowired
-    private BookService bookService;
+    private jakarta.validation.Validator beanValidator;
+    public Set<Validator> springValidators;
 
-
-    @Override
-    public void initialize(BookId constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
+    public BookValidator() {
+        springValidators = new HashSet<Validator>();
     }
 
     @Override
-    public boolean isValid(String bookId, ConstraintValidatorContext constraintValidatorContext) {
-        Book book;
-        try {
-            book = bookService.getBookById(bookId);
-        } catch (RuntimeException e) {
-            return true;
+    public boolean supports(Class<?> clazz) {
+        return Book.class.isAssignableFrom(clazz);
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+    //    Bean Validation 관련
+        Set<ConstraintViolation<Object>> violations = beanValidator.validate(target);
+        for (ConstraintViolation<Object> violation: violations) {
+            String propertyPath = violation.getPropertyPath().toString();
+            String message = violation.getMessage();
+            errors.rejectValue(propertyPath, "", message);
         }
-
-        if (book != null)
-            return false;
-
-
-        return true;
+    //    Validator 구현체 관련
+        for (Validator validator : springValidators) {
+            validator.validate(target, errors);
+        }
     }
 }

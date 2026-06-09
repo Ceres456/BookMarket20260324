@@ -1,14 +1,14 @@
 package kr.ac.kopo.wodyd.bookmarket.service;
 
-import kr.ac.kopo.wodyd.bookmarket.domain.Book;
-import kr.ac.kopo.wodyd.bookmarket.repository.BookRepository;
+import kr.ac.kopo.yoon.bookmarket.domain.Book;
+import kr.ac.kopo.yoon.bookmarket.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 
 @Service
 public class BookServiceImpl implements BookService{
@@ -19,8 +19,9 @@ public class BookServiceImpl implements BookService{
     public List<Book> getAllBookList() {
         return bookRepository.getAllBookList();
     }
+
     @Override
-    public Book getBookById(String bookId){
+    public Book getBookById(String bookId) {
         Book book = bookRepository.getBookById(bookId);
         return book;
     }
@@ -41,6 +42,4 @@ public class BookServiceImpl implements BookService{
     public void setNewBook(Book book) {
         bookRepository.setNewBook(book);
     }
-
-
 }
