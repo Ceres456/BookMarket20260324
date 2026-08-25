@@ -3,6 +3,7 @@ package kr.ac.kopo.wodyd.bookmarket.controller;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import kr.ac.kopo.wodyd.bookmarket.domain.Book;
+import kr.ac.kopo.wodyd.bookmarket.eception.CategoryException;
 import kr.ac.kopo.wodyd.bookmarket.service.BookService;
 import kr.ac.kopo.wodyd.bookmarket.validator.BookValidator;
 import kr.ac.kopo.wodyd.bookmarket.validator.UnitsInStockValidator;
@@ -55,6 +56,9 @@ public class BookController {
     @GetMapping("/{category}")
     public String requestBooksByCategory(@PathVariable("category") String bookCategory, Model model) {
         List<Book> booksByCategory = bookService.getBookListByCategory(bookCategory);
+        if (booksByCategory == null || booksByCategory.isEmpty())
+            throw new CategoryException();
+
         model.addAttribute("bookList", booksByCategory);
         return "books";
     }

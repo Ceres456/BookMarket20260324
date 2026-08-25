@@ -2,8 +2,10 @@ package kr.ac.kopo.wodyd.bookmarket.repository;
 
 
 import jakarta.servlet.Filter;
+import jakarta.servlet.http.HttpServletRequest;
 import kr.ac.kopo.wodyd.bookmarket.domain.Book;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -69,6 +71,10 @@ public class BookRepositoryImpl implements BookRepository{
             }
         }
 
+//        if(book == null){
+//            throw new IllegalArgumentException("도서ID가 " + bookId + "인 도서를 찾을 수 없습니다.");
+//        }
+
         if(book == null){
             throw new IllegalArgumentException("도서ID가 " + bookId + "인 도서를 찾을 수 없습니다.");
         }
@@ -124,3 +130,5 @@ public class BookRepositoryImpl implements BookRepository{
         listOfBooks.add(book);
     }
 }
+
+
