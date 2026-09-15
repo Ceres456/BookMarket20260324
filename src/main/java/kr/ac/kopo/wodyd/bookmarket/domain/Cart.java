@@ -24,4 +24,12 @@ public class Cart {
         this();
         this.cartId = cartId;
     }
+
+    public void removeCartItem(CartItem item){
+        String bookId = item.getBookId();
+        cartItems.remove(bookId);
+        updateGrandTotal();
+    }
+
 }
+
