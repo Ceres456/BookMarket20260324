@@ -20,10 +20,12 @@ public class CartItem {
 
     public void setBook(Book book) {
         this.book = book;
+        updateTotalPrice();
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        updateTotalPrice();
     }
 
     public void updateTotalPrice() {

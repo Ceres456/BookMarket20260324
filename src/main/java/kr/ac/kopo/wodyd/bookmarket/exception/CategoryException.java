@@ -1,4 +1,4 @@
-package kr.ac.kopo.wodyd.bookmarket.eception;
+package kr.ac.kopo.wodyd.bookmarket.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -8,8 +8,7 @@ public class CategoryException extends RuntimeException{
     private String errorMessage;
 
     public CategoryException() {
-        this.errorMessage = "요청한 도서 카테고리를찾을 수 없습니다."
+        super("요청한 도서 카테고리를 찾을 수 없습니다.");
+        this.errorMessage = "요청한 도서 카테고리를 찾을 수 없습니다.";
     }
 }
-
-

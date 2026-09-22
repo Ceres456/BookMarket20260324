@@ -1,11 +1,9 @@
 package kr.ac.kopo.wodyd.bookmarket.repository;
 
 
-import jakarta.servlet.Filter;
-import jakarta.servlet.http.HttpServletRequest;
 import kr.ac.kopo.wodyd.bookmarket.domain.Book;
+import kr.ac.kopo.wodyd.bookmarket.exception.BookIdException;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -71,12 +69,8 @@ public class BookRepositoryImpl implements BookRepository{
             }
         }
 
-//        if(book == null){
-//            throw new IllegalArgumentException("도서ID가 " + bookId + "인 도서를 찾을 수 없습니다.");
-//        }
-
         if(book == null){
-            throw new IllegalArgumentException("도서ID가 " + bookId + "인 도서를 찾을 수 없습니다.");
+            throw new BookIdException(bookId);
         }
 
         return book;
@@ -118,9 +112,14 @@ public class BookRepositoryImpl implements BookRepository{
             }
         }
 
+        // 3. 두 조건이 모두 있으면 교집합, 하나만 있으면 그 결과를 반환
+        if (filterKeys.contains("publisher") && filterKeys.contains("category")) {
+            booksByCategory.retainAll(booksByPublisher);
+            return booksByCategory;
+        }
 
-
-        booksByCategory.retainAll(booksByPublisher);
+        if (filterKeys.contains("publisher"))
+            return booksByPublisher;
 
         return booksByCategory;
     }

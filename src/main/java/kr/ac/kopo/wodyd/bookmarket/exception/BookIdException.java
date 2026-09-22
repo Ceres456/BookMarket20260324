@@ -1,4 +1,4 @@
-package kr.ac.kopo.wodyd.bookmarket.eception;
+package kr.ac.kopo.wodyd.bookmarket.exception;
 
 import lombok.Data;
 
