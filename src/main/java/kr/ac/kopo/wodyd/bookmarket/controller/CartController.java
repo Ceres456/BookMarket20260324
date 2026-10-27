@@ -1,7 +1,6 @@
 package kr.ac.kopo.wodyd.bookmarket.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import kr.ac.kopo.wodyd.bookmarket.domain.Book;
 import kr.ac.kopo.wodyd.bookmarket.domain.Cart;
 import kr.ac.kopo.wodyd.bookmarket.domain.CartItem;
@@ -23,36 +22,32 @@ public class CartController {
     @Autowired
     private BookService bookService;
 
-    public CartController(CartService cartService) {
-        this.cartService = cartService;
-    }
-
     @GetMapping
-    public String requestCartId(HttpServletRequest request) {
+    public String requestCartId(HttpServletRequest request){
         String sessionId = request.getSession().getId();
         return "redirect:/cart/" + sessionId;
     }
 
     @PostMapping
-    public @ResponseBody Cart create(@RequestBody Cart cart) {
+    public @ResponseBody Cart create(@RequestBody Cart cart){
         return cartService.create(cart);
     }
 
     @GetMapping("/{cartId}")
-    public String requestCartList(@PathVariable(value = "cartId") String cartId, Model model) {
+    public String requestCartList(@PathVariable(value = "cartId")String cartId, Model model){
         Cart cart = cartService.read(cartId);
         model.addAttribute("cart", cart);
         return "cart";
     }
 
     @PutMapping("/{cartId}")
-    public @ResponseBody Cart read(@PathVariable(value = "cartId") String cartId) {
+    public @ResponseBody Cart read(@PathVariable(value = "cartId") String cartId){
         return cartService.read(cartId);
     }
 
     @PutMapping("/book/{bookId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void addCartByNewItem(@PathVariable("bookId") String bookId, HttpServletRequest request) {
+    public void addCartByNewItem(@PathVariable("bookId") String bookId, HttpServletRequest request){
         String sessionId = request.getSession(true).getId();
 
         Cart cart = cartService.read(sessionId);
@@ -62,7 +57,7 @@ public class CartController {
 
         Book book = bookService.getBookById(bookId);
 
-        if(book == null)
+        if (book == null)
             throw new IllegalArgumentException(new BookIdException(bookId));
 
         cart.addCartItem(new CartItem(book));
@@ -71,8 +66,8 @@ public class CartController {
     }
 
     @DeleteMapping("/book/{bookId}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void removeCartByItem(@PathVariable("bookId") String bookId, HttpServletRequest request) {
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)//생략(기본):정상적 실행에 대한 응답(200), 정상+반환값없다: 204
+    public void removeCartByItem(@PathVariable("bookId") String bookId, HttpServletRequest request){
         String sessionId = request.getSession(true).getId();
 
         Cart cart = cartService.read(sessionId);
@@ -82,7 +77,7 @@ public class CartController {
 
         Book book = bookService.getBookById(bookId);
 
-        if(book == null)
+        if (book == null)
             throw new IllegalArgumentException(new BookIdException(bookId));
 
         cart.removeCartItem(new CartItem(book));
@@ -92,7 +87,7 @@ public class CartController {
 
     @DeleteMapping("/{cartId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteCartList(@PathVariable("cartId") String cartId) {
+    public void deleteCartList(@PathVariable("cartId") String cartId){
         cartService.delete(cartId);
     }
 }

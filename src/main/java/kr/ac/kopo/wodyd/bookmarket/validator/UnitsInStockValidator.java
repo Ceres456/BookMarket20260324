@@ -1,5 +1,6 @@
 package kr.ac.kopo.wodyd.bookmarket.validator;
 
+
 import kr.ac.kopo.wodyd.bookmarket.domain.Book;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -19,8 +20,8 @@ public class UnitsInStockValidator implements Validator {
         Book book = (Book) target;
         BigDecimal unitPrice = book.getUnitPrice();
         long unitsInStock = book.getUnitsInStock();
-        if (unitPrice != null && unitPrice.intValue() >= 10000 && unitsInStock > 99){
-            errors.rejectValue("unitsInStock", "UnitsInStockValidator.message", "도서가격이 10000원 이상인 경우에는 100개 이상을 재고량으로 등록할 수 없습니다.");
+        if(unitPrice != null && unitPrice.intValue() >= 10000  && unitsInStock > 99 ){
+            errors.rejectValue("unitsInStock", "UnitsInStockValidator.message", "가격 10000원 이상인 경우에는 100개 이상을 재고량으로 등록할 수 없습니다.");
         }
     }
 }

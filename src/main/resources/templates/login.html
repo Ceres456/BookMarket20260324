@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Sign In</title>
@@ -9,7 +8,7 @@
 <div class="container py-4">
     <header class="pb-3 mb-4 border-bottom">
         <a href="/BookMarket/home" class="d-flex align-items-center text-body-emphasis text-decoration-none">
-            <img th:src="@{/imgs/book_icon.png}" width="50" height="50" >&nbsp;&nbsp;
+            <img src="imgs/book_icon.png">&nbsp;&nbsp;
             <span class="fs-4">BookMarket</span>
         </a>
     </header>
@@ -25,23 +24,21 @@
                 <h3 class="form-signin-heading">로그인이 필요합니다.</h3>
             </div>
             <div class="alert alert-danger" th:if="${error}">
-                ID 또는 Password가 올바르지 않습니다. <br>
+                UserName과 Passoword가 올바르지 않습니다. <br>
             </div>
             <form class="form-signin" action="/BookMarket/login" method="post">
                 <div class="mb-3 row">
-                    <input type="text" name="username" class="form-control" placeholder="Input ID" required autofocus>
+                    <input type="text" name="username" class="form-control" placeholder="Input UserName" required autofocus>
                 </div>
                 <div class="mb-3 row">
                     <input type="password" name="password" class="form-control" placeholder="Input Password" required>
                 </div>
                 <div class="mb-3 row">
-                    <button type="submit" class="btn btn-lg btn-success btn-block">Sign In</button>
+                    <button type="submit" class="btn btn-lg btn-success btn-block">로그인</button>
                 </div>
             </form>
         </div>
     </div>
-
-
     <footer class="pt-3 mt-4 text-body-secondary border-top">
         <span class="text-body-secondary">&copy; BookMarket</span>
     </footer>

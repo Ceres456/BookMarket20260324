@@ -1,6 +1,5 @@
 package kr.ac.kopo.wodyd.bookmarket.domain;
 
-
 import lombok.Data;
 import lombok.ToString;
 
@@ -20,26 +19,26 @@ public class Cart {
         grandTotal = new BigDecimal(0);
     }
 
-    public Cart(String cartId){
+    public Cart(String cartId) {
         this();
         this.cartId = cartId;
     }
 
-    public void updateGrandTotal() {
+    public void updateGrandTotal(){
         grandTotal = new BigDecimal(0);
-        for (CartItem item : cartItems.values()) {
+        for (CartItem item: cartItems.values()){
             grandTotal = grandTotal.add(item.getTotalPrice());
         }
     }
 
-    public void addCartItem(CartItem item) {
+    public void addCartItem(CartItem item){
         String bookId = item.getBook().getBookId();
 
-        if (cartItems.containsKey(bookId)) {
+        if(cartItems.containsKey(bookId)){
             CartItem cartItem = cartItems.get(bookId);
             cartItem.setQuantity(cartItem.getQuantity() + item.getQuantity());
             cartItems.put(bookId, cartItem);
-        } else {
+        }else {
             cartItems.put(bookId, item);
         }
 

@@ -11,7 +11,7 @@ public class CartRepositoryImpl implements CartRepository{
     private Map<String, Cart> listOfCarts;
 
     public CartRepositoryImpl() {
-        listOfCarts = new HashMap<>();
+        listOfCarts = new HashMap<String, Cart>();
     }
 
     @Override
@@ -40,9 +40,9 @@ public class CartRepositoryImpl implements CartRepository{
     }
 
     @Override
-    public void delete(String cartId){
-        if(listOfCarts.keySet().contains(cartId)){
-            throw new IllegalArgumentException(String.format("장바구니 목록 삭제 불가능. 이유: 해당장바구니 id(%s)가 존재하지 않음", cartId));
+    public void delete(String cartId) {
+        if (!listOfCarts.keySet().contains(cartId)){
+            throw  new IllegalArgumentException(String.format("장바구니 목록 삭제 불가능. 이유: 해당 장바구니 id(%s)가 존재하지 않음", cartId));
         }
 
         listOfCarts.remove(cartId);

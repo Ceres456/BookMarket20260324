@@ -8,7 +8,6 @@ public class CategoryException extends RuntimeException{
     private String errorMessage;
 
     public CategoryException() {
-        super("요청한 도서 카테고리를 찾을 수 없습니다.");
         this.errorMessage = "요청한 도서 카테고리를 찾을 수 없습니다.";
     }
 }
