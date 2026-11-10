@@ -16,5 +16,3 @@ public class Customer {
     @JoinColumn(name = "address_id")
     private Address address;
 }
-
-

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class OrderRepositoryImpl implements OrderRepository {
+public class OrderRepositoryImpl implements OrderRepository{
     private Map<Long, Order> listOfOrders;
     private long nextOrderId;
 
@@ -17,7 +17,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Long saveOrder(Order order){
+    public Long saveOrder(Order order) {
         order.setOrderId(nextOrderId);
         listOfOrders.put(order.getOrderId(), order);
         return order.getOrderId();
